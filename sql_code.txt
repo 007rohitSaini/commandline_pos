@@ -1,0 +1,6 @@
+CREATE TABLE `project`.`stock` (
+  `Itemcode` INT NOT NULL,
+  `Name` VARCHAR(45) NOT NULL,
+  `Quantity` INT NOT NULL,
+  `Price` INT NOT NULL,
+  PRIMARY KEY (`Itemcode`));
