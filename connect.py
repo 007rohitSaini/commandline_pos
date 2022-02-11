@@ -101,7 +101,7 @@ def sell():
 
             remain = int(item[2]) - qty    
 
-            cur.execute('UPDATE project.stock SET Quantity = %s WHERE itemcode = %s'),(remain, item_code)
+            cur.execute('UPDATE project.stock SET Quantity = %s WHERE itemcode = %s',(remain, item_code))
             commit()
 
             print("Thank you for buying Mr./Ms. {} your total is {} for {} units of {}".format(name, total, qty, item_name))
