@@ -72,7 +72,7 @@ def show_login():
         print(row, '\n') 
 
 #define function to display Sale table
-def show_login():
+def show_sale():
     cur.execute("Select * from project.sale") 
     result = cur.fetchall() 
     commit()  
