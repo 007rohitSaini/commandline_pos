@@ -112,7 +112,7 @@ def sell():
         print("Item not found")    
 
 def update_Stock():
-    what = input("Enter New to enter new item else press update to update existing item")
+    what = input("Enter New to enter new item else enter update to update existing item")
 
     if what.lower() == 'new':
         item_code = int(input("Enter Item Code: "))
@@ -126,4 +126,11 @@ def update_Stock():
         print("item added succesfully")
 
     else:
-        pass    
+        item_code = int(input("Enter item code to be edited: "))
+        stock = int(input("Enter number units currently available: "))
+        price = int(input("Enter current price: "))
+
+        cur.execute("UPDATE project.stock SET stock = %s, price = %s WHERE itemcode = %s",(stock, price, item_code))
+        commit()
+
+        print("Item updated succesfully")
