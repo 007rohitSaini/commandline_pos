@@ -1,6 +1,7 @@
-from datetime import datetime as date
+from datetime import datetime 
 import mysql.connector
 import getpass
+import random
 
 
 # connect to database
@@ -88,15 +89,16 @@ def sell():
         print(item)
         respo = input("Enter y or n to continue with item fetched : ")
         if respo.lower() == 'y':
+            invoice_number = random.randint(1,1000)
             item_code = item[0]
             item_name = item[1]
             qty = int(input('Enter Quantity of item bought: '))
             name = input("Enter Buyer name: ")
             price = item[3]
             total = price * qty
-            datetime = date.now()
+            date = datetime.now()
 
-            cur.execute('INSERT INTO project.sale VALUES (%s, %s, %s, %s, %s, %s, %s)',(item_code, item_name, qty, name, price, total, datetime))
+            cur.execute('INSERT INTO project.sale VALUES (%s,%s, %s, %s, %s, %s, %s, %s)',(invoice_number, item_code, item_name, qty, name, price, total, date))
             commit()
 
             remain = int(item[2]) - qty    
