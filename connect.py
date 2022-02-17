@@ -8,7 +8,7 @@ import random
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",# database username
-  password="saini" # database password
+  password="tiger" # database password
 )
 
 # define function for MySql Cursor
@@ -35,7 +35,9 @@ def login():
     if acc:
         return acc # if account existes return account data
     else:
+        login()
         return "Login failed" # if no account was found then return failes massage
+        
 
 #define function for signing up 
 def signin(id,name,password,role):
@@ -56,29 +58,58 @@ def signin(id,name,password,role):
 
     return msg
 
+# module for registering employes into the database
+def sign():
+    print("Create login")
+    # take inputes
+    id = int(input("Enter Employ_id : "))
+    name = input("Enter name :")
+    # use getpass for password to hide password 
+    password = getpass.getpass('Enter password : ') 
+    # get role
+    role = input("Enter E to create employ login or Enter M to create Manager login : ")
+    #cheak if role is for employ or manager
+    if role.lower() == 'e':
+        role = 'Employ'
+    else:
+        role = 'Manager'    
+    # register login credentials in database     
+    res = signin(id, name, password, role)
+    print(res)
+    return 0
+
 # Define function to display stock table
 def show_db():
     cur.execute("Select * from project.stock") 
     result = cur.fetchall() 
-    commit()  
-    for row in result:
-        print(row, '\n') 
+    commit()
+    if result:
+        for row in result:
+            print(row, '\n')
+    else:
+        print("No record found")
 
 #define function to display login table
 def show_login():
     cur.execute("Select * from project.login") 
     result = cur.fetchall() 
-    commit()  
-    for row in result:
-        print(row, '\n') 
+    commit()
+    if result:
+        for row in result:
+            print(row, '\n')
+    else:
+        print("No record found")    
 
 #define function to display Sale table
 def show_sale():
     cur.execute("Select * from project.sale") 
     result = cur.fetchall() 
     commit()  
-    for row in result:
-        print(row, '\n')  
+    if result:
+        for row in result:
+            print(row, '\n')
+    else:
+        print("No record found")        
 
 #define function to make trancition
 def sell():
@@ -97,6 +128,7 @@ def sell():
             price = item[3]
             total = price * qty
             date = datetime.now()
+            date = date.strftime('%Y-%m-%d %H:%M:%S')
 
             cur.execute('INSERT INTO project.sale VALUES (%s,%s, %s, %s, %s, %s, %s, %s)',(invoice_number, item_code, item_name, qty, name, price, total, date))
             commit()
@@ -114,7 +146,7 @@ def sell():
         print("Item not found")    
 
 def update_Stock():
-    what = input("Enter New to enter new item else enter update to update existing item")
+    what = input("Enter New to enter new item else enter update to update existing item: ")
 
     if what.lower() == 'new':
         item_code = int(input("Enter Item Code: "))
@@ -127,12 +159,14 @@ def update_Stock():
 
         print("item added succesfully")
 
-    else:
+    elif what.lower() == 'update':
         item_code = int(input("Enter item code to be edited: "))
         stock = int(input("Enter number units currently available: "))
         price = int(input("Enter current price: "))
 
-        cur.execute("UPDATE project.stock SET stock = %s, price = %s WHERE itemcode = %s",(stock, price, item_code))
+        cur.execute("UPDATE project.stock SET Quantity = %s, Price = %s WHERE Itemcode = %s",(stock, price, item_code))
         commit()
 
         print("Item updated succesfully")
+    else:
+        print("Invalid input")
