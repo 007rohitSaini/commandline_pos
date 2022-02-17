@@ -10,6 +10,7 @@ guildline to use:</br>
 `pip install -r requirements.txt`</br>
 `python main.py`</br>
 
+create tables from sql folder before running the program.</br>
 
 I made this project as my 12th grade final project,made it as guildlined by my school computer teacher.</br>
 want to make it better by school will not allow , may be never get a update.
