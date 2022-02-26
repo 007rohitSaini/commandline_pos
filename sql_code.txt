@@ -1,6 +1,27 @@
-CREATE TABLE `project`.`stock` (
-  `Itemcode` INT NOT NULL,
-  `Name` VARCHAR(45) NOT NULL,
-  `Quantity` INT NOT NULL,
-  `Price` INT NOT NULL,
-  PRIMARY KEY (`Itemcode`));
+CREATE database project;
+USE project;
+CREATE TABLE stock (
+  `Itemcode` int NOT NULL,
+  `Name` varchar(45) NOT NULL,
+  `Quantity` int NOT NULL,
+  `Price` int NOT NULL,
+  PRIMARY KEY (`Itemcode`)
+);
+CREATE TABLE sale (
+  `Item_code` int NOT NULL,
+  `item_name` varchar(45) NOT NULL,
+  `qty` int NOT NULL,
+  `buyer_name` varchar(45) NOT NULL,
+  `price` int NOT NULL,
+  `total` int NOT NULL,
+  `datetime` datetime DEFAULT NULL,
+  PRIMARY KEY (`Item_code`)
+);
+CREATE TABLE login (
+  `Employ_code` int NOT NULL,
+  `Name` varchar(100) NOT NULL,
+  `Password` varchar(45) NOT NULL,
+  `Role` varchar(45) NOT NULL,
+  PRIMARY KEY (`Employ_code`)
+);
+INSERT INTO `login` VALUES (1,'Rohit Saini','saini','Manager');
